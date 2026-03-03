@@ -1,16 +1,13 @@
 spring:
-  data:
-    redis:
-      host: localhost
-      port: 8080
+  profiles:
+    active: prod
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/testDB
-    username: root
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: Asia/Seoul
+
   jpa:
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: create-drop
     properties:
@@ -18,7 +15,20 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
+  cloud:
+    aws:
+      parameterstore:
+        enabled: false
 
 jwt:
   secret:
     key: dGhpc0lzQVN1cGVyU2VjdXJlSldUU2VjcmV0S2V5Rm9ySFMyNTY=
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  info:
+    env:
+      enabled: true

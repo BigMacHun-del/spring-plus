@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -39,6 +40,8 @@ public class SecurityConfig {
                 )
                 // URL별 접근 권한 설정
                 .authorizeHttpRequests(auth -> auth
+                        // 헬스 체크
+                        .requestMatchers("/actuator/**").permitAll()
                         // 인증 없이 접근 가능한 경로
                         .requestMatchers("/auth/**").permitAll()
                         // ADMIN 권한이 필요한 경로
