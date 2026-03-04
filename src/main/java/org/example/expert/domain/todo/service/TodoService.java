@@ -53,6 +53,7 @@ public class TodoService {
         );
     }
 
+    @Transactional(readOnly = true)
     public Page<TodoResponse> getTodos(int page, int size, String weather, String startDate, String endDate) {
         Pageable pageable = PageRequest.of(page - 1, size);
 
@@ -81,6 +82,7 @@ public class TodoService {
         ));
     }
 
+    @Transactional(readOnly = true)
     public TodoResponse getTodo(long todoId) {
         Todo todo = todoRepository.findByIdWithUser(todoId)
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
@@ -98,6 +100,7 @@ public class TodoService {
         );
     }
 
+    @Transactional
     public Page<TodoSearchResponse> searchTodos(
             int page, int size,
             String title,
